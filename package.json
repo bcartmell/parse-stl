@@ -1,0 +1,23 @@
+{
+  "name": "parse-stl",
+  "version": "1.0.0",
+  "description": "Convert an Stl file into an array of vertex arrays",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bcartmell/parse-stl.git"
+  },
+  "keywords": [
+    "Stl",
+    "CAD"
+  ],
+  "author": "Brady Cartmell",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bcartmell/parse-stl/issues"
+  },
+  "homepage": "https://github.com/bcartmell/parse-stl#readme"
+}
