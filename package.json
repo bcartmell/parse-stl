@@ -1,5 +1,5 @@
 {
-  "name": "parse-stl",
+  "name": "osatt-parse-stl",
   "version": "1.0.1",
   "description": "Convert an Stl file into an array of vertex arrays",
   "main": "index.js",
