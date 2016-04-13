@@ -1,5 +1,32 @@
 'use strict';
-module.exports = function parseBuffer(data) {
+function changeExt(path, newExt) {
+  return path.slice(0, path.lastIndexOf('.')) + '.' + newExt;
+}
+
+function getMesh(filePath, callback) {
+  const bufferPath = changeExt(filePath, 'json');
+  fs.access(bufferPath, (err) {
+    if (err) buildMesh(filePath, callback);
+    else fs.readFile(bufferPath, callback);
+  });
+}
+
+function buildMesh(path, callback) {
+  fs.readFile(path, (err, data) => {
+    if (err) throw err;
+    const mesh = JSON.stringify(parseBuffer(data));
+    saveMesh(changeExt(path, 'json'), mesh);
+    if (callback) callback(mesh);
+  });
+}
+
+function saveMesh(fileName, buffer, callback) {
+  fs.writeFile(fileName, buffer, (err) => {
+    if (callback) callback(err, buffer);
+  });
+}
+
+function parseBuffer(data) {
   let vertices = [];
 
   // the first 80 characters of an STL file are HEADER, which we can ignore
@@ -25,4 +52,8 @@ module.exports = function parseBuffer(data) {
     }
   }
   return vertices;
-};
+}
+
+module.exports = function(filePath, callback) {  
+  getMesh(filePath, callback);
+}
