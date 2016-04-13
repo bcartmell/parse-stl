@@ -1,6 +1,10 @@
 {
   "name": "osatt-parse-stl",
+<<<<<<< HEAD
   "version": "2.0.0",
+=======
+  "version": "1.0.0",
+>>>>>>> 8cb702df033dffd642f621a1438e066510f9f671
   "description": "Convert an Stl file into an array of vertex arrays",
   "main": "index.js",
   "scripts": {
