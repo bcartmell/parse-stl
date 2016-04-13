@@ -1,13 +1,21 @@
 'use strict';
+const fs = require('fs');
+
 function changeExt(path, newExt) {
   return path.slice(0, path.lastIndexOf('.')) + '.' + newExt;
 }
 
 function getMesh(filePath, callback) {
   const bufferPath = changeExt(filePath, 'json');
-  fs.access(bufferPath, (err) {
-    if (err) buildMesh(filePath, callback);
-    else fs.readFile(bufferPath, callback);
+  fs.access(bufferPath, (err) => {
+    if (err) {
+      console.log('json not found, building mesh');
+      buildMesh(filePath, callback);
+    }
+    else {
+      console.log('json found, returning pre-built mesh');
+      fs.readFile(bufferPath, callback);
+    }
   });
 }
 
@@ -16,7 +24,7 @@ function buildMesh(path, callback) {
     if (err) throw err;
     const mesh = JSON.stringify(parseBuffer(data));
     saveMesh(changeExt(path, 'json'), mesh);
-    if (callback) callback(mesh);
+    if (callback) callback(err, mesh);
   });
 }
 
