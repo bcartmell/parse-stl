@@ -9,12 +9,13 @@ function getMesh(filePath, callback) {
   const bufferPath = changeExt(filePath, 'json');
   fs.access(bufferPath, (err) => {
     if (err) {
-      console.log('json not found, building mesh');
       buildMesh(filePath, callback);
     }
     else {
-      console.log('json found, returning pre-built mesh');
-      fs.readFile(bufferPath, callback);
+      const startTime = new Date();
+      fs.readFile(bufferPath, (err, data) => {
+        callback(err, data);
+      });
     }
   });
 }
@@ -41,8 +42,6 @@ function parseBuffer(data) {
   // the next 4 bytes are for the facetsCount
   let facetsCount = data.readUIntLE(80,4);
   data = data.slice(84);
-
-  console.log('facetsCount', facetsCount);
 
   // start at 4 because the first 4 bytes is the facet count
   // only go to length-12 because this is where the last facet starts
